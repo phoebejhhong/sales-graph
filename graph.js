@@ -4,14 +4,14 @@ Graph = function (filePath) {
 
 Graph.prototype.getData = function () {
   var req =new XMLHttpRequest;
-  
+
   function reqListener (event) {
     this.DATA = resp.currentTarget.responseText;
     console.log(this.DATA);
   };
 
   req.onload = reqListener.bind(this);
-  req.open("get", filePath, true);
+  req.open("get", this.filePath, true);
   req.send();
 };
 

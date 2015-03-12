@@ -6,7 +6,7 @@ Graph.prototype.getData = function () {
   var req =new XMLHttpRequest;
 
   function reqListener (event) {
-    this.DATA = resp.currentTarget.responseText;
+    this.DATA = event.currentTarget.responseText;
     console.log(this.DATA);
   };
 

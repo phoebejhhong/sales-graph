@@ -5,6 +5,12 @@
   </head>
   <body>
     <!-- <input type="file" id="files" name="files[]" /> -->
+    <h1>Donut Sales Summary</h1>
+    <select class="period">
+      <option value="all" selected>March 2013 ~ February 2015</option>
+      <option value="last-one-year">March 2014 ~ February 2015</option>
+      <option value="first-one-year">March 2013 ~ February 2014</option>
+    </select>
     <div class="graph">
       <div class="tooltip">
 
@@ -17,5 +23,11 @@
 
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="data.js" charset="utf-8"></script>
+    <script charset="utf-8">
+    var selectPeriod = document.getElementsByClassName("period")[0];
+    selectPeriod.addEventListener("change", function (event) {
+      salesData.changeData(event.target.value);
+    });
+    </script>
   </body>
 </html>

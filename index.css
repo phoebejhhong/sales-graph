@@ -1,10 +1,77 @@
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+
+.graph {
+  margin: auto;
+  width: 1020px;
+}
+
+.period {
+  display: inline-block;
+  font-size: 18px;
+}
+
+.legend {
+  float: right;
+  display: inline-block;
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+  height: 32px;
+  line-height: 32px;
+  vertical-align: middle;
+}
+
+.legend span {
+  top: 5px;
+  position: relative;
+  font-size: 38px;
+}
+
+.fees {
+  color: #F2777A;
+}
+
+.sales-fees {
+  color: #6699CC;
+}
+
+.tooltip {
+  position: absolute;
+  display: none;
+}
+
+.tooltip span {
+  position: relative;
+  display: block;
+  width: 150px;
+  text-align: center;
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+svg {
+  display: inline;
+}
+
 .x-axis path,
 .y-axis path,
-.x-axis line {
+.x-axis line,
+.year-axis line,
+.year-axis path,
+.year-tick-axis line,
+.year-tick-axis path {
   fill: none;
-  stroke: #000;
   shape-rendering: crispEdges;
+  stroke: #222;
+  stroke-width: 1;
 }
+
 
 .bar {
   fill: #6699CC;
@@ -16,16 +83,4 @@
 
 .fee-bar {
   fill: #F2777A;
-}
-
-.tooltip {
-  position: absolute;
-  text-align: center;
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-  display: none;
 }

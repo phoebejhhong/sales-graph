@@ -1,19 +1,24 @@
 <html>
   <head>
-    <title>Donut Sales Graph</title>
+    <title>Donut Sales Growth</title>
     <link rel="stylesheet" type="text/css" href="index.css">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <!-- <input type="file" id="files" name="files[]" /> -->
-    <h1>Donut Sales Summary</h1>
-    <select class="period">
-      <option value="all" selected>March 2013 ~ February 2015</option>
-      <option value="last-one-year">March 2014 ~ February 2015</option>
-      <option value="first-one-year">March 2013 ~ February 2014</option>
-    </select>
+    <h1>Donut Sales Growth</h1>
     <div class="graph">
+      <select class="period">
+        <option value="all" selected>March 2013 ~ February 2015</option>
+        <option value="last-one-year">March 2014 ~ February 2015</option>
+        <option value="first-one-year">March 2013 ~ February 2014</option>
+      </select>
+      <div class="legend">
+        <span class="fees">&#9632</span> fees
+        <span class="sales-fees">&#9632</span> sales - fees
+      </div>
       <div class="tooltip">
-
+        <span></span>
       </div>
       <svg></svg>
     </div>

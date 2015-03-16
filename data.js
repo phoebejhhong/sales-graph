@@ -33,7 +33,7 @@ SalesData.prototype.changeData = function (condition) {
 
 SalesData.prototype.drawGraph = function (data) {
 
-  var margin = {top: 100, right: 40, bottom: 40, left:80},
+  var margin = {top: 100, right: 40, bottom: 100, left:100},
     width = 900,
     height = 450,
     barPadding=5;
@@ -65,34 +65,59 @@ SalesData.prototype.drawGraph = function (data) {
 
   // create and append x and y axis
   var xAxis = d3.svg.axis()
-  .scale(x)
-  .orient("bottom")
-  .ticks(d3.time.months, 2)
-  .tickFormat(d3.time.format("%b"))
-  .tickSize(0)
-  .tickPadding(15);
+    .scale(x)
+    .orient("bottom")
+    .ticks(d3.time.months, 1)
+    .tickFormat(d3.time.format("%b"))
+    .tickSize(0)
+    .tickPadding(15);
+
+  // additional axis for year
+  var yearAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .ticks(d3.time.years, 0)
+    .tickFormat(d3.time.format("%Y"))
+    .tickSize(0)
+    .tickPadding(0);
+
+  // additional axis for tick marks without labels
+  var yearTickAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .ticks(d3.time.years, 1)
+    .tickFormat("")
+    .tickSize(65)
+    .tickPadding(0);
 
   var yAxis = d3.svg.axis()
-  .scale(y)
-  .orient("left")
-  .tickSize(0)
-  .tickPadding(15);
+    .scale(y)
+    .orient("left")
+    .tickSize(0)
+    .tickPadding(15);
 
   svg.append("g")
-  .attr("class", "x-axis")
-  .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
-  .call(xAxis);
+    .attr("class", "x-axis")
+    .attr("transform", "translate(" + (margin.left + 15) + "," + (height + margin.top) + ")")
+    .call(xAxis);
 
   svg.append("g")
-  .attr("class", "y-axis")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-  .call(yAxis)
-  .append("text")
-  .attr("transform", "rotate(-90)")
-  .attr("y", 6)
-  .attr("dy", ".71em")
-  .style("text-anchor", "end")
-  .text("$");
+    .attr("class", "year-axis")
+    .attr("transform", "translate(" + (margin.left + 25) + "," + (height + margin.top + 50) + ")")
+    .call(yearAxis);
+
+    svg.append("g")
+    .attr("class", "year-tick-axis")
+    .attr("transform", "translate(" + margin.left + "," + (height + margin.top + 1) + ")")
+    .call(yearTickAxis);
+
+  svg.append("g")
+    .attr("class", "y-axis")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .call(yAxis)
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .text("$");
 
   // create and append groups for rects
   var newRects = rects.enter()
@@ -101,30 +126,32 @@ SalesData.prototype.drawGraph = function (data) {
 
   // bars for fees on the top
   newRects.append("rect")
-  .attr("class", "fee-bar")
-  .attr("x", function(d) {
-    return margin.left + x(new Date(d.label));
-  })
-  .attr("y", function(d) {
-    return y(d.sales) + margin.top;
-  })
-  .attr("height", function(d) {
-    return height - y(d.fees);
-  })
-  .attr("width", width / data.length - barPadding)
+    .attr("class", "fee-bar")
+    .attr("x", function(d) {
+      return margin.left + x(new Date(d.label));
+    })
+    .attr("y", function(d) {
+      return y(d.sales) + margin.top;
+    })
+    .attr("height", function(d) {
+      return height - y(d.fees);
+    })
+    .attr("width", width / data.length - barPadding)
 
   var showTooltip = function () {
     var rect = d3.select(this).selectAll("rect"),
     // get the values of this bar
-      x = Number(rect.attr("x")) - 10,
-      y = Number(rect.attr("y")) - 50,
+      x = Number(rect.attr("x")) - 60,
+      y = Number(rect.attr("y")) - 100,
       values = rect.data()[0];
 
     d3.select(".tooltip")
     .style("display", "block")
+
+    d3.select(".tooltip").select("span")
     .style("left", x + "px")
     .style("top", y + "px")
-    .html("count: " + values.count + "<br /> sales: " + values.sales + "<br /> fees: " + values.fees);
+    .html(values.count + " donuts<br />fees: " + values.fees + "</span><br /> sales: " + values.sales);
   };
 
   var hideTooltip = function () {
@@ -134,20 +161,20 @@ SalesData.prototype.drawGraph = function (data) {
 
   // bars for sales minus fees on the bottom
   newRects.append("rect")
-  .attr("class", "bar")
-  .attr("x", function(d) {
-    return margin.left + x(new Date(d.label));
-  })
-  .attr("y", function(d) {
-    return y(d.sales - d.fees) + margin.top;
-  })
-  .attr("height", function(d) {
-    return height - y(d.sales - d.fees);
-  })
-  .attr("width", width / data.length - barPadding)
+    .attr("class", "bar")
+    .attr("x", function(d) {
+      return margin.left + x(new Date(d.label));
+    })
+    .attr("y", function(d) {
+      return y(d.sales - d.fees) + margin.top;
+    })
+    .attr("height", function(d) {
+      return height - y(d.sales - d.fees);
+    })
+    .attr("width", width / data.length - barPadding)
 
   newRects.on("mouseover", showTooltip)
-  .on("mouseout", hideTooltip);
+    .on("mouseout", hideTooltip);
 
 };
 

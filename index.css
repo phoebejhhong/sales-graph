@@ -1,3 +1,7 @@
+* {
+  font-family: georgia;
+}
+
 h1 {
   font-family: 'Montserrat', sans-serif;
   text-align: center;
@@ -83,4 +87,22 @@ svg {
 
 .fee-bar {
   fill: #F2777A;
+}
+
+table {
+  margin: auto;
+  width: 900px;
+  text-align: center;
+  text-size: 18px;
+  border: 1px solid #eee;
+}
+
+thead {
+  font-family: 'Montserrat', sans-serif;
+  background: #66CCCC;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #eee;
 }

@@ -8,6 +8,7 @@ SalesData.prototype.getData = function () {
   function reqListener (event) {
     this.data = JSON.parse(event.currentTarget.responseText);
     this.drawGraph(this.data);
+    this.createTable(this.data);
   };
 
   req.onload = reqListener.bind(this);
@@ -28,7 +29,9 @@ SalesData.prototype.changeData = function (condition) {
       break;
   };
   d3.select("svg").selectAll("*").remove();
+  d3.select("table").selectAll("*").remove();
   this.drawGraph(this.currentData);
+  this.createTable(this.currentData);
 };
 
 SalesData.prototype.drawGraph = function (data) {
@@ -177,6 +180,41 @@ SalesData.prototype.drawGraph = function (data) {
     .on("mouseout", hideTooltip);
 
 };
+
+SalesData.prototype.createTable = function (data) {
+  var table = d3.select("table"),
+    thead = table.append("thead"),
+    tbody = table.append("tbody"),
+    columns = Object.keys(data[0]);
+
+  // append the header
+  thead.append("tr")
+    .selectAll("th")
+    .data(columns)
+    .enter()
+    .append("th")
+    .text(function(columns) {
+      return columns
+    });
+
+  // create rows
+  var rows = tbody.selectAll("tr")
+    .data(data)
+    .enter()
+    .append("tr");
+
+  // create cells
+  var cells = rows.selectAll("td")
+  .data(function (row) {
+    return columns.map(function (column) {
+      return {column: column, value: row[column]};
+    });
+  })
+  .enter()
+  .append("td")
+  .text(function(d) {return d.value});
+};
+
 
 salesData = new SalesData("http://phoebehong.com/sales-graph/numbers.json");
 salesData.getData();

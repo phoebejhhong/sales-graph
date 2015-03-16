@@ -66,7 +66,7 @@ SalesData.prototype.drawGraph = function (data) {
   var rects = svg.selectAll("rect")
   .data(data);
 
-  // create and append x and y axis
+  // create x axis
   var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom")
@@ -93,12 +93,14 @@ SalesData.prototype.drawGraph = function (data) {
     .tickSize(65)
     .tickPadding(0);
 
+  // create y axis
   var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left")
     .tickSize(0)
     .tickPadding(15);
 
+  // append axes
   svg.append("g")
     .attr("class", "x-axis")
     .attr("transform", "translate(" + (margin.left + 15) + "," + (height + margin.top) + ")")

@@ -64,10 +64,15 @@ svg {
 }
 
 .x-axis path,
-.y-axis path,
 .x-axis line,
+.y-axis path,
+.y-axis line,
 .year-axis line,
-.year-axis path,
+.year-axis path {
+  fill: none;
+  shape-rendering: crispEdges;
+  stroke-width: 0;
+}
 .year-tick-axis line,
 .year-tick-axis path {
   fill: none;
@@ -97,7 +102,7 @@ table {
   border: 1px solid #eee;
 }
 
-thead {
+th {
   font-family: 'Montserrat', sans-serif;
   background: #66CCCC;
 }

@@ -113,7 +113,7 @@ SalesData.prototype.drawGraph = function (data) {
 
     svg.append("g")
     .attr("class", "year-tick-axis")
-    .attr("transform", "translate(" + margin.left + "," + (height + margin.top + 1) + ")")
+    .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
     .call(yearTickAxis);
 
   svg.append("g")
